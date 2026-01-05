@@ -12,7 +12,7 @@ import {
     setCourseSectionData, 
     setEntireCourseData, 
     setTotalNoOfLectures 
-} from "../../slices/viewCourseSlice";
+} from "../../Slices/viewCourseSlice";
 import VideoDetailsSidebar from "../../ViewCourse/VideoDetailsSidebar";
 import CourseReviewModal from "../../ViewCourse/CourseReviewModal";
 
