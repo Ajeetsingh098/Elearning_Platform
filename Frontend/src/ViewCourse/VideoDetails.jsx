@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { updateCompletedLectures } from "../slices/viewCourseSlice";
+import { updateCompletedLectures } from "../Slices/viewCourseSlice";
 
 const VideoDetails = () => {
   const { sectionId, subSectionId } = useParams();
