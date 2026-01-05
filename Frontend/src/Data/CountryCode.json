@@ -1,0 +1,22 @@
+[
+  { "code": "+91", "country": "India", "id": "IN" },
+  { "code": "+1", "country": "USA", "id": "US" },
+  { "code": "+44", "country": "UK", "id": "GB" },
+  { "code": "+61", "country": "Australia", "id": "AU" },
+  { "code": "+1", "country": "Canada", "id": "CA" },
+  { "code": "+49", "country": "Germany", "id": "DE" },
+  { "code": "+33", "country": "France", "id": "FR" },
+  { "code": "+81", "country": "Japan", "id": "JP" },
+  { "code": "+86", "country": "China", "id": "CN" },
+  { "code": "+971", "country": "UAE", "id": "AE" },
+  { "code": "+7", "country": "Russia", "id": "RU" },
+  { "code": "+55", "country": "Brazil", "id": "BR" },
+  { "code": "+27", "country": "South Africa", "id": "ZA" },
+  { "code": "+39", "country": "Italy", "id": "IT" },
+  { "code": "+34", "country": "Spain", "id": "ES" },
+  { "code": "+65", "country": "Singapore", "id": "SG" },
+  { "code": "+82", "country": "South Korea", "id": "KR" },
+  { "code": "+62", "country": "Indonesia", "id": "ID" },
+  { "code": "+60", "country": "Malaysia", "id": "MY" },
+  { "code": "+92", "country": "Pakistan", "id": "PK" }
+]
