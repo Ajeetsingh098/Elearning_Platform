@@ -27,18 +27,32 @@ const PORT=process.env.PORT || 4000;
 
 database.connect();
 
-app.use(express.json());
-app.use(cookieParser());
+
 
 
 app.use(
     cors({
-    origin:"https://elearning-platform-1-uwnb.onrender.com",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials:true
-})
-)
+        origin: (origin, callback) => {
+            const allowed = [
+                "https://elearning-platform-1-uwnb.onrender.com",
+                "https://elearning-platform-1-uwnb.onrender.com/"
+            ];
+            if (!origin || allowed.includes(origin)) {
+                callback(null, true);
+            } else {
+                callback(new Error("CORS not allowed"));
+            }
+        },
+        methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        credentials: true,
+        allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+    })
+);
 
+app.options("*", cors());
+
+app.use(express.json());
+app.use(cookieParser());
 
 app.use(fileUpload({
     useTempFiles:true,
