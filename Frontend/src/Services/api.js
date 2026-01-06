@@ -68,39 +68,3 @@ export const courseEndpoints = {
 
 
 
-// const BASE_URL = import.meta.env.VITE_BASE_URL;
-
-// export const categories = {
-//     CATEGORIES_API: `${BASE_URL}/tag/showAlltags`,
-// };
-
-// export const endpoints = {
-//     SENDOTP_API: `${BASE_URL}/auth/sendotp`,
-//     LOGIN_API: `${BASE_URL}/auth/login`,
-//     SIGNUP_API: `${BASE_URL}/auth/signup`,
-//     RESETPASSWORD_API: `${BASE_URL}/auth/resetpassword`,
-//     RESETPASSTOKEN_API: `${BASE_URL}/auth/resetpasswordtoken`,
-// }
-
-
-// export const profile={
-//     UPDATEPROFILE_API:`${BASE_URL}/profile/updateProfile`,
-//     DELETEACCOUNT_API:`${BASE_URL}/profile/deleteaccount`,
-//      GETUSERDETAIL_API:`${BASE_URL}/profile/getalluserdetails`,
-//      GET_USER_ENROLLED_COURSES_API:`${BASE_URL}/profile/getEnrolledCourses`
-// }
-
-// export const studentEndpoints={
-//     COURSE_PAYMENT_API:`${BASE_URL}/payment/capturePayment`,
-//     COURSE_VERIFY_API:`${BASE_URL}/payment/verifyPayment`,
-//     SEND_PAYMENT_SUCCESS_EMAIL_API:`${BASE_URL}/payment/sendPaymentSuccessEmail`
-// }
-
-
-
-// export const CoursesEndpoints={
-//      CREATE_COURSE_API:`${BASE_URL}/course/createcourse`,
-//      EDIT_COURSE_API:`${BASE_URL}/course/editCourse`,
-//      GETINSTRUCTOR_COURSE_API:`${BASE_URL}/course/getInstructorCourses`,
-//     DELETE_COURSE_API:`${BASE_URL}/course/deleteCourse`,
-// }
