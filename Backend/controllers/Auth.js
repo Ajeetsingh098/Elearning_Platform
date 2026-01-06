@@ -4,7 +4,7 @@ const otpGenerator = require("otp-generator");
 const Profile = require("../models/Profile");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const mailSender=require("../utils/mailSender")
+const mailSender = require("../utils/mailSender")
 
 require("dotenv").config();
 
@@ -24,7 +24,7 @@ exports.sendOtp = async (req, res) => {
             });
         }
 
-      
+
         let otp = otpGenerator.generate(6, {
             upperCaseAlphabets: false,
             lowerCaseAlphabets: false,
@@ -32,23 +32,25 @@ exports.sendOtp = async (req, res) => {
         });
 
         // Save OTP
-         await Otp.create({ email, otp });
+        await Otp.create({ email, otp });
         try {
-          await mailSender(
-                email, 
-                "Verification Email from ATpoint", 
+            await mailSender(
+                email,
+                "Verification Email from ATpoint",
                 emailVerificationTemplate(otp)
             );
-        }catch (mailError) {
+            return res.status(200).json({
+                success: true,
+                message: "OTP sent successfully",
+            });
+
+        } catch (mailError) {
             console.error("RENDER MAIL ERROR:", mailError);
-            return res.status(500).json({ success: false, message: "Email service failed" });
+            return res.status(500).json({
+                success: false,
+                message: "Email service failed"
+            });
         }
-
-
-        return res.status(200).json({
-            success: true,
-            message: "OTP sent successfully",
-        });
 
     } catch (error) {
         console.log(error);
@@ -137,7 +139,7 @@ exports.signUp = async (req, res) => {
             additionalDetails: profileDetails._id,
             image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
         });
-           
+
         // console.log("SIGNUP BODY ", req.body);
 
         return res.status(200).json({

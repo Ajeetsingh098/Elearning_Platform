@@ -1,41 +1,83 @@
 
-
 const nodemailer = require("nodemailer");
 
 
+const transporter = nodemailer.createTransport({
+  host: process.env.MAIL_HOST || "smtp.gmail.com",
+  port: 465,
+  secure: true, 
+  auth: {
+    user: process.env.MAIL_USER,
+    pass: process.env.MAIL_PASS, 
+  },
+ pool: true, 
+  maxConnections: 1,
+  rateLimit: 1,
+  connectionTimeout: 20000, 
+  socketTimeout: 20000,     
+  idleTimeout: 30000,
+});
 
 const mailSender = async (email, subject, htmlBody) => {
   try {
-    let transporter = nodemailer.createTransport({
-      host: process.env.MAIL_HOST,
-      port:465,
-      secure: true,
-      auth: {
-        user: process.env.MAIL_USER,
-        pass: process.env.MAIL_PASS,
-      },
-      pool: true,
-      maxConnections: 1,
-      rateLimit: 1
-    });
-
-
-    console.log("Attempting to connect to SMTP...");
-
+    console.log(`Attempting to send email to: ${email}`);
+    
     let info = await transporter.sendMail({
-      from: process.env.MAIL_USER,
-      to: `${email}`,
+      from: `"ATpoint" <${process.env.MAIL_USER}>`,
+      to: email,
       subject: subject,
       html: htmlBody,
     });
-
-    console.log("Email sent:");
+    
+    console.log("Email sent successfully:", info.messageId);
     return info;
-
   } catch (error) {
-    console.log("Mail Error:", error);
-    return error;
+    console.error("Mail Error in mailSender:", error.message);
+    throw error; 
   }
 };
 
 module.exports = mailSender;
+
+
+
+
+// const nodemailer = require("nodemailer");
+
+
+
+// const mailSender = async (email, subject, htmlBody) => {
+//   try {
+//     let transporter = nodemailer.createTransport({
+//       host: process.env.MAIL_HOST,
+//       port:465,
+//       secure: true,
+//       auth: {
+//         user: process.env.MAIL_USER,
+//         pass: process.env.MAIL_PASS,
+//       },
+//       pool: true,
+//      socketTimeout: 20000, 
+//   connectionTimeout: 20000,
+//     });
+
+
+//     console.log("Attempting to connect to SMTP...");
+
+//     let info = await transporter.sendMail({
+//       from: process.env.MAIL_USER,
+//       to: `${email}`,
+//       subject: subject,
+//       html: htmlBody,
+//     });
+//      console.log("SMTP Response received!");
+//     console.log("Email sent:");
+//     return info;
+
+//   } catch (error) {
+//     console.log("Mail Error:", error);
+//     return error;
+//   }
+// };
+
+// module.exports = mailSender;
