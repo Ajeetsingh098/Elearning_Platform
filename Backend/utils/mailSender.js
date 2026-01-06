@@ -10,11 +10,17 @@ const transporter = nodemailer.createTransport({
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS,
   },
+  pool: true,              
+  maxConnections: 1,      
+  rateLimit: 1,            
+  connectionTimeout: 60000, 
+  socketTimeout: 60000,
+  idleTimeout: 30000,
 tls: {
     rejectUnauthorized: false,
     minVersion: "TLSv1.2"
   },
-  connectionTimeout: 40000,
+ 
 });
 
 const mailSender = async (email, subject, htmlBody) => {
