@@ -3,18 +3,18 @@ const nodemailer = require("nodemailer");
 
 
 const transporter = nodemailer.createTransport({
- host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+ service: "gmail",
   auth: {
     user: process.env.MAIL_USER,
-    pass: process.env.MAIL_PASS, 
+    pass: process.env.MAIL_PASS,
   },
-pool: true,
-  connectionTimeout: 30000, 
-  socketTimeout: 30000,
+  debug: true,
+  logger: true,
+  connectionTimeout: 10000,
+  greetingTimeout: 10000,
+  socketTimeout: 10000,
   tls: {
-    rejectUnauthorized: false 
+    rejectUnauthorized: false
   }
 });
 
@@ -28,12 +28,12 @@ const mailSender = async (email, subject, htmlBody) => {
       subject: subject,
       html: htmlBody,
     });
-    
-    
+
+
     return info;
   } catch (error) {
     console.error("Mail Error in mailSender:", error.message);
-  return null;
+    return null;
   }
 };
 
@@ -57,7 +57,7 @@ module.exports = mailSender;
 //         pass: process.env.MAIL_PASS,
 //       },
 //       pool: true,
-//      socketTimeout: 20000, 
+//      socketTimeout: 20000,
 //   connectionTimeout: 20000,
 //     });
 
