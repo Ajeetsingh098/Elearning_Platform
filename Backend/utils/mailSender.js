@@ -29,7 +29,7 @@ const mailSender = async (email, subject, htmlBody) => {
       html: htmlBody,
     });
     
-    console.log("Email sent successfully:", info.messageId);
+    
     return info;
   } catch (error) {
     console.error("Mail Error in mailSender:", error.message);
