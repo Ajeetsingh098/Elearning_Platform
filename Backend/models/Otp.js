@@ -4,7 +4,6 @@ const emailVerificationTemplate = require("../Mail_templates/emailVerification")
 
 const OtpSchema = new mongoose.Schema({
   email: {
-
     type: String,
     required: true,
   
@@ -39,17 +38,17 @@ async function sendVerificationEmail(email, otp) {
 
   } catch (error) {
     console.log("error occured during sending mail", error)
-    throw error;
   }
 }
 
 
-OtpSchema.pre("save",  function () {
+OtpSchema.pre("save", async function (next){
   console.log("New document saved to database");
+
  if (this.isNew) {
      sendVerificationEmail(this.email, this.otp);
   }
-  // next();
+  next();
 });
 
 

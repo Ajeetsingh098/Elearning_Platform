@@ -24,36 +24,31 @@ exports.sendOtp = async (req, res) => {
             });
         }
 
-
         let otp = otpGenerator.generate(6, {
             upperCaseAlphabets: false,
             lowerCaseAlphabets: false,
             specialChars: false,
         });
 
-        // Save OTP
+       
         await Otp.create({ email, otp });
-        try {
-            await mailSender(
-                email,
-                "Verification Email from ATpoint",
-                emailVerificationTemplate(otp)
-            );
-            return res.status(200).json({
-                success: true,
-                message: "OTP sent successfully",
-            });
 
-        } catch (mailError) {
-            console.error("RENDER MAIL ERROR:", mailError);
-            return res.status(500).json({
-                success: false,
-                message: "Email service failed"
-            });
-        }
+        res.status(200).json({
+            success: true,
+            message: "OTP sent successfully",
+        });
+
+      
+        mailSender(
+            email,
+            "Verification Email from ATpoint",
+            emailVerificationTemplate(otp)
+        ).catch(err => {
+            console.error("BACKGROUND MAIL ERROR:", err.message);
+        });
 
     } catch (error) {
-        console.log(error);
+        console.log("Controller Error:", error);
         return res.status(500).json({
             success: false,
             message: "Error generating OTP"

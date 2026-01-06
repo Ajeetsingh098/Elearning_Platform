@@ -3,25 +3,25 @@ const nodemailer = require("nodemailer");
 
 
 const transporter = nodemailer.createTransport({
-  host: process.env.MAIL_HOST || "smtp.gmail.com",
-  port: 465,
-  secure: true, 
+ host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
   auth: {
     user: process.env.MAIL_USER,
     pass: process.env.MAIL_PASS, 
   },
- pool: true, 
-  maxConnections: 1,
-  rateLimit: 1,
-  connectionTimeout: 20000, 
-  socketTimeout: 20000,     
-  idleTimeout: 30000,
+pool: true,
+  connectionTimeout: 30000, 
+  socketTimeout: 30000,
+  tls: {
+    rejectUnauthorized: false 
+  }
 });
 
 const mailSender = async (email, subject, htmlBody) => {
   try {
     console.log(`Attempting to send email to: ${email}`);
-    
+
     let info = await transporter.sendMail({
       from: `"ATpoint" <${process.env.MAIL_USER}>`,
       to: email,
@@ -33,7 +33,7 @@ const mailSender = async (email, subject, htmlBody) => {
     return info;
   } catch (error) {
     console.error("Mail Error in mailSender:", error.message);
-    throw error; 
+  return null;
   }
 };
 
