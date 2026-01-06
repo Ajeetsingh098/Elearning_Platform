@@ -44,12 +44,12 @@ async function sendVerificationEmail(email, otp) {
 }
 
 
-OtpSchema.pre("save", async function (next) {
+OtpSchema.pre("save",  function () {
   console.log("New document saved to database");
  if (this.isNew) {
-    await sendVerificationEmail(this.email, this.otp);
+     sendVerificationEmail(this.email, this.otp);
   }
-  next();
+  // next();
 });
 
 
