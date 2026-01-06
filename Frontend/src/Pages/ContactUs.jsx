@@ -3,7 +3,7 @@ import ContactFormSection from '../Components/Core/Aboutpage/ContactFormSection'
 import Footer from '../Components/common/Footer';
 import * as Icons from "react-icons/hi2";
 import ReviewSlider from '../Components/common/ReviewSlider';
-
+import HighlightText from '../Components/Core/HomePage/HighlightText';
 const contactDetails = [
   {
     icon: "HiChatBubbleLeftRight",
