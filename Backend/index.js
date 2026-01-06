@@ -34,6 +34,7 @@ app.use(cookieParser());
 app.use(
     cors({
     origin:"https://elearning-platform-1-uwnb.onrender.com",
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials:true
 })
 )
