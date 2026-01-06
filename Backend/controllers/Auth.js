@@ -4,7 +4,6 @@ const otpGenerator = require("otp-generator");
 const Profile = require("../models/Profile");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-// const sendVerificationEmail = require("../models/Otp")
 const mailSender=require("../utils/mailSender")
 
 require("dotenv").config();
@@ -33,18 +32,22 @@ exports.sendOtp = async (req, res) => {
         });
 
         // Save OTP
+         await Otp.create({ email, otp });
         try {
-            const otpBody = await Otp.create({ email, otp });
-        } catch (dbError) {
-            console.log("DB Error:", dbError);
-            return res.status(500).json({ success: false, message: "DB error" });
+          await mailSender(
+                email, 
+                "Verification Email from ATpoint", 
+                emailVerificationTemplate(otp)
+            );
+        }catch (mailError) {
+            console.error("RENDER MAIL ERROR:", mailError);
+            return res.status(500).json({ success: false, message: "Email service failed" });
         }
 
 
         return res.status(200).json({
             success: true,
             message: "OTP sent successfully",
-            otp
         });
 
     } catch (error) {
@@ -55,68 +58,6 @@ exports.sendOtp = async (req, res) => {
         });
     }
 };
-
-
-// exports.sendOtp = async (req, res) => {
-//     try {
-//         const { email } = req.body; //email fetch from body
-
-//         const checkUserPresent = await User.findOne({ email });
-
-//         if (checkUserPresent) {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: "user already exit"
-//             })
-//         }
-//         //generate otp//
-//         var otp = otpGenerator.generate(6, {
-//             upperCaseAlphabets: false,
-//             lowerCaseAlphabets: false,
-//             specialChars: false,
-//             unique:true
-//         });
-//         console.log("otp generated successfully", otp);
-
-//         //for unique//
-//         const result = await Otp.findOne({ otp: otp });
-//         while (result) {
-//             otp = otpGenerator(6, {
-//                 upperCaseAlphabets: false,
-//                 lowerCaseAlphabets: false,
-//                 specialChars: false
-//             })
-//             result = await Otp.findOne({ otp: otp })
-//         }
-
-//         const otpPayload = { email, otp };
-
-//         //save in db //
-//         const otpBody = await Otp.create(otpPayload);
-//         console.log(otpBody)
-
-//         return res.status(200).json({
-//             success: true,
-//             message: "Otp sent Successfully.",
-//             otp
-//         })
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             success: false,
-//             message: "Error occur during otp sending"
-//         })
-//     }
-
-
-
-// }
-
-
-
-
-//signUp//
-
 
 
 
@@ -215,103 +156,6 @@ exports.signUp = async (req, res) => {
 };
 
 
-
-
-//     try {
-//         const {
-//             firstName,
-//             lastName,
-//             email,
-//             password,
-//             confirmPassword,
-//             contactNumber,
-//             otp
-//         } = req.body;
-
-
-//         if (!firstName || !email || !password || !confirmPassword || !Otp) {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: "All fields are required"
-//             })
-//         }
-
-//         if (password !== confirmPassword) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Password and ConfirmPasword does not match,Please try again"
-//             })
-//         }
-
-//         const exitingUser = await User.findOne({ email });
-//         if (exitingUser) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "user is already registerd"
-//             });
-//         }
-
-//         const recentOtp = await Otp.find({ email }).sort({ createdAt: -1 }).limit(1);
-//         console.log(recentOtp)
-//         if (recentOtp.length == 0) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "otp not found"
-//             });
-//         } else if (otp !== recentOtp.otp) {
-//             return res.status(400).json({
-//                 success: false,
-//                 message: "Invalid Otp "
-//             });
-//         }
-
-
-//         const hashPassword = await bcrypt.hash(password, 10);
-
-//         const profileDetails = await Profile.create({
-//             gender: null,
-//             dateOfBirth: null,
-//             about: null,
-//             contactNumber: null,
-//         })
-
-
-//         const user = await User.create({
-//             firstName,
-//             lastName,
-//             email,
-//             password: hashPassword,
-//             accountType,
-//             additionalDetails: profileDetails._id,
-//             image: `https://api.dicebear.com/5.x/initials/svg?seed=${firstName} ${lastName}`,
-//         })
-
-//         return res.status(200).json({
-//             success: true,
-//             message: "User is registerd successfully",
-//             user,
-//         })
-
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             success: false,
-//             message: "Error occur during signup"
-//         })
-//     }
-
-
-
-
-// }
-
-
-//login//
-
-
-
-
-
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -372,68 +216,6 @@ exports.login = async (req, res) => {
         });
     }
 };
-
-
-// exports.login = async (req, res) => {
-//     try {
-//         const { email, password } = req.body;
-//         if (!email || !password) {
-//             return res.status(403).json({
-//                 success: false,
-//                 message: "All fields are required"
-//             })
-//         }
-
-//         const user = await User.findOne({ email }).populate("additionalDetails");
-//         if (!user) {
-//             return res.status(403).json({
-//                 success: false,
-//                 message: "User does'nt exit,please signup"
-//             })
-//         }
-
-//         if (await bcrypt.compare(password, user.password)) {
-//             const payload = {
-//                 email: user.email,
-//                 id: user._id,
-//                 accountType: user.accountType,
-//             }
-//             const token = jwt.sign(payload, process.env.JWT_SECRET, {
-//                 expiresIN: "2h"
-//             });
-
-//             user.token = token;
-//             user.password = undefined;
-
-//             const option = {
-//                 expires: new Date(Date.now() + 1 * 24 * 60 * 60 * 1000),
-//                 httpOnly: true
-//             }
-
-//             res.cookie("token", token, option).status(200).json({
-//                 success: true,
-//                 token,
-//                 user,
-//                 message: "logged in successfully"
-//             })
-
-//         } else {
-//             return res.status(401).json({
-//                 success: false,
-//                 message: "Password is incorrect"
-//             });
-//         }
-
-
-//     } catch (error) {
-//         console.log(error);
-//         return res.status(500).json({
-//             success: false,
-//             message: "login failure"
-//         });
-//     }
-// }
-
 
 
 
