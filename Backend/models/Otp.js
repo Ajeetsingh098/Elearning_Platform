@@ -44,10 +44,10 @@ async function sendVerificationEmail(email, otp) {
 }
 
 
-OtpSchema.pre("save", async function (next) {
+OtpSchema.pre("save", async function () {
   try {
     await sendVerificationEmail(this.email, this.otp);
-   next();
+  //  next();
   } catch (error) {
     console.log("Error sending email:", error);
    
