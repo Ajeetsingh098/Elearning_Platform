@@ -3,7 +3,7 @@ import ContactFormSection from '../Components/Core/Aboutpage/ContactFormSection'
 import Footer from '../Components/common/Footer';
 import * as Icons from "react-icons/hi2";
 import ReviewSlider from '../Components/common/ReviewSlider';
-import HighlightText from '../Components/Core/HomePage/HighlightText';
+// import HighlightText from '../Components/Core/HomePage/HighlightText';
 
 
 const contactDetails = [
@@ -66,7 +66,8 @@ function ContactUs() {
       <section className="bg-slate-900 py-20 text-white overflow-hidden">
         <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
           <h2 className="text-center text-3xl md:text-4xl font-semibold mb-12">
-            What Our <HighlightText text="Students Say" />
+            What Our Students Say 
+             {/* <HighlightText text="Students Say" /> */}
           </h2>
           <div className="w-full">
             <ReviewSlider />
