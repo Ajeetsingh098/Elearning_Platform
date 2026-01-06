@@ -7,7 +7,7 @@ const OtpSchema = new mongoose.Schema({
 
     type: String,
     required: true,
-    unique: true
+  
 
   },
   otp: {
@@ -17,8 +17,8 @@ const OtpSchema = new mongoose.Schema({
   },
   createdAt: {
     type: Date,
-    default: Date.now(),
-    expires: 5 * 60,
+    default: Date.now,
+    expires: 60*5,
 
   }
 
@@ -44,14 +44,12 @@ async function sendVerificationEmail(email, otp) {
 }
 
 
-OtpSchema.pre("save", async function () {
-  try {
+OtpSchema.pre("save", async function (next) {
+  console.log("New document saved to database");
+ if (this.isNew) {
     await sendVerificationEmail(this.email, this.otp);
-  //  next();
-  } catch (error) {
-    console.log("Error sending email:", error);
-   
   }
+  next();
 });
 
 
