@@ -1,7 +1,8 @@
 import React from 'react'
 import ContactFormSection from '../Components/Core/Aboutpage/ContactFormSection';
 import Footer from '../Components/common/Footer';
-import * as Icons from "react-icons/hi2"; 
+import * as Icons from "react-icons/hi2";
+import ReviewSlider from '../Components/common/ReviewSlider';
 
 const contactDetails = [
   {
@@ -28,7 +29,13 @@ function ContactUs() {
   return (
     <div className='bg-richblack-900 text-white'>
       <div className='mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 lg:flex-row'>
-        
+
+        {/* Contact Form */}
+        <div className='lg:w-[60%]'>
+
+          <ContactFormSection />
+        </div>
+
         {/*  Contact Details */}
         <div className='lg:w-[40%]'>
           <div className='flex flex-col gap-6 rounded-2xl bg-richblack-800 p-4 lg:p-6'>
@@ -37,7 +44,7 @@ function ContactUs() {
               return (
                 <div className='flex flex-col gap-0.5 p-3 text-sm text-richblack-200' key={i}>
                   <div className='flex flex-row items-center gap-3'>
-                    <Icon size={25} className="text-richblack-5"/>
+                    <Icon size={25} className="text-richblack-5" />
                     <h1 className='text-lg font-semibold text-richblack-5'>
                       {ele.heading}
                     </h1>
@@ -50,21 +57,20 @@ function ContactUs() {
           </div>
         </div>
 
-        {/* Contact Form */}
-        <div className='lg:w-[60%]'>
-         
-          <ContactFormSection />
-        </div>
+
       </div>
 
       {/* Reviews Section  */}
-      <div className='relative mx-auto my-20 flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-8 text-white'>
-        <h1 className='text-center text-4xl font-semibold mt-8'>
-          Reviews from other learners
-        </h1>
-        {/* <ReviewSlider /> */}
-      </div>
-
+      <section className="bg-slate-900 py-20 text-white overflow-hidden">
+        <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
+          <h2 className="text-center text-3xl md:text-4xl font-semibold mb-12">
+            What Our <HighlightText text="Students Say" />
+          </h2>
+          <div className="w-full">
+            <ReviewSlider />
+          </div>
+        </div>
+      </section>
       <Footer />
     </div>
   )

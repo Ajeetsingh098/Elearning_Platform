@@ -224,15 +224,13 @@ function Home() {
         </div>
       </section>
 
-      {/* ================= REVIEWS & INSTRUCTOR SECTION ================= */}
+     
       {/* ================= REVIEWS SECTION ================= */}
       <section className="bg-slate-900 py-20 text-white overflow-hidden">
         <div className="w-11/12 max-w-7xl mx-auto flex flex-col items-center">
           <h2 className="text-center text-3xl md:text-4xl font-semibold mb-12">
             What Our <HighlightText text="Students Say" />
           </h2>
-
-          {/* This wrapper ensures the slider stays centered */}
           <div className="w-full">
             <ReviewSlider />
           </div>
