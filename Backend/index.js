@@ -32,7 +32,7 @@ database.connect();
 
 app.use(
     cors({
-        origin: "https://elearning-platform-1-uwnb.onrender.com",
+        origin: "https://elearning-platform-1-uwnb.onrender.com" ||"https://elearning-platform-lovat.vercel.app",
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true,
         allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],

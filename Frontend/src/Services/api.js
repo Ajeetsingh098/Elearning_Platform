@@ -1,7 +1,7 @@
 
 
 
-const BASE_URL = import.meta.env.VITE_BASE_URL;
+const BASE_URL = import.meta.env.VITE_BASE_URL || import.meta.env.VITE_BASE_URL2;
 
 // CATEGORY ENDPOINTS
 export const categories = {
