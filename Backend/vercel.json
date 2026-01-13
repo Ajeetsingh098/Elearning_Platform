@@ -3,14 +3,14 @@
   "name": "ELEARNING_PLATFORM",
   "builds": [
     {
-      "src": "index.js",
+      "src": "app.js",
       "use": "@vercel/node"
     }
   ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/index.js"
+      "dest": "/app.js"
     }
   ]
 }
