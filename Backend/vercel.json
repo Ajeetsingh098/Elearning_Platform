@@ -1,16 +1,10 @@
 {
   "version": 2,
-  "name": "ELEARNING_PLATFORM",
-  "builds": [
-    {
-      "src": "app.js",
-      "use": "@vercel/node"
-    }
-  ],
   "routes": [
     {
       "src": "/(.*)",
-      "dest": "/app.js"
+      "dest": "/index.html"
     }
   ]
 }
+
