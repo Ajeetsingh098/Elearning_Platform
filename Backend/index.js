@@ -34,7 +34,6 @@ app.use(
     cors({
         origin: 
         // "https://elearning-platform-1-uwnb.onrender.com",
-
             "https://elearning-platform-5fsba7rr0-ajeet-singhs-projects-24e97d87.vercel.app",
         methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         credentials: true,
