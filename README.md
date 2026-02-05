@@ -4,7 +4,7 @@
                                      
  An interactive Learning Management System (LMS) designed to bring high-quality education to your home. This platform allows students to access courses and instructors to manage content through a seamless, modern interface.
 
- Live Demo: elearning-platform-lovat.vercel.app
+ Live Demo: [elearning-platform-lovat.vercel.app](https://elearning-platform-lovat.vercel.app/)
 
 
  Key Features:-
